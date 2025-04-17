@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signup</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>Signup</h2>
+    
+    <div class="input-group">
+      <i class="fas fa-user"></i>
+      <input type="email" id="email" placeholder="Email">
+    </div>
+    
+    <div class="input-group">
+      <i class="fas fa-lock"></i>
+      <input type="password" id="password" placeholder="Password">
+    </div>
+    
+    <div class="input-group">
+      <i class="fas fa-lock"></i>
+      <input type="password" id="confirm_password" placeholder="Confirm Password">
+    </div>
+    
+    <div class="options">
+      <label><input type="checkbox"> I agree to terms</label>
+      <a href="login.html">Already have an account?</a>
+    </div>
+
+    <button onclick="signup()">SIGNUP</button>
+  </div>
+
+  <!-- Firebase Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBdYXS1yOI62tyywvYNxxs0ODQFaf1kBkc",
+        authDomain: "myformapp-782c3.firebaseapp.com",
+        projectId: "myformapp-782c3",
+        storageBucket: "myformapp-782c3.firebasestorage.app",
+        messagingSenderId: "584817787716",
+        appId: "1:584817787716:web:e8f46c30b3eff9f794cd11"
+    };
+    const app = initializeApp(firebaseConfig);
+
+    window.signup = function() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm_password").value;
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match ❌");
+        return;
+      }
+
+      createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          alert("Signup successful! ✅");
+          window.location.href = "login.html";
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    };
+  </script>
+</body>
+</html>
